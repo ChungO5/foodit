@@ -9,14 +9,17 @@ const App = () => {
 
   const handleNewChange = () => setOrder("createdAt");
   const handleCalorieChange = () => setOrder("calorie");
-
+  const handleDelete = (id) => {
+    const newItems = items.filter((item) => item.id !== id);
+    setItems(newItems);
+  };
   return (
     <div>
       <div>
         <button onClick={handleNewChange}>최신순</button>
         <button onClick={handleCalorieChange}>칼로리순</button>
       </div>
-      <FoodList items={sortedItems} />
+      <FoodList items={sortedItems} onDelete={handleDelete} />
     </div>
   );
 };
