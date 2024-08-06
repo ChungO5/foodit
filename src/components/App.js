@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import FoodList from "./FoodList";
-import items from "../mock.json";
+import mockItems from "../mock.json";
 
 const App = () => {
+  const [items, setItems] = useState(mockItems);
+  const [order, setOrder] = useState("createdAt");
+  const sortedItems = items.sort((a, b) => b[order] - a[order]);
+
+  const handleNewChange = () => setOrder("createdAt");
+  const handleCalorieChange = () => setOrder("calorie");
+
   return (
     <div>
-      <FoodList items={items} />
+      <div>
+        <button onClick={handleNewChange}>최신순</button>
+        <button onClick={handleCalorieChange}>칼로리순</button>
+      </div>
+      <FoodList items={sortedItems} />
     </div>
   );
 };
