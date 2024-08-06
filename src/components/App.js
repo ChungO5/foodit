@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FoodList from "./FoodList";
-import { getFood } from "../api";
+import { getFoods } from "../api";
 
 const App = () => {
     const [items, setItems] = useState([]);
@@ -13,10 +13,15 @@ const App = () => {
         const newItems = items.filter((item) => item.id !== id);
         setItems(newItems);
     };
-    const handleLoadClick = async () => {
-        const { foods } = await getFood();
+
+    const handleLoadClick = async (order) => {
+        const { foods } = await getFoods(order);
         setItems(foods);
     };
+
+    useEffect(() => {
+        handleLoadClick(order);
+    }, [order]);
 
     return (
         <div>
@@ -25,7 +30,6 @@ const App = () => {
                 <button onClick={handleCalorieChange}>칼로리순</button>
             </div>
             <FoodList items={sortedItems} onDelete={handleDelete} />
-            <button onClick={handleLoadClick}>불러오기</button>
         </div>
     );
 };

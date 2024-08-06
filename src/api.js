@@ -1,5 +1,6 @@
-export const getFood = async () => {
-    const respnse = await fetch(`https://learn.codeit.kr/6666/foods`);
+export const getFoods = async ({ order }) => {
+    const query = `${order}`;
+    const respnse = await fetch(`https://learn.codeit.kr/6666/foods?${query}`);
     const body = await respnse.json();
     return body;
 };
