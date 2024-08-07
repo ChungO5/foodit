@@ -28,7 +28,11 @@ const FoodForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <FileInput name="imgFile" onChange={handleChange} />
+            <FileInput
+                name="imgFile"
+                value={values.imgFile}
+                onChange={handleChange}
+            />
             <input
                 name="title"
                 value={values.title}
