@@ -1,34 +1,51 @@
 import React, { useState } from "react";
+import FileInput from "./FileInput";
 
 const FoodForm = () => {
-    const [title, setTitle] = useState("");
-    const [calorie, setCalorie] = useState(0);
-    const [content, setContent] = useState("");
+    const [values, setValues] = useState({
+        title: "",
+        calorie: 0,
+        content: "",
+        imgFile: null,
+    });
 
-    const handleTitleChange = (e) => {
-        setTitle(e.target.value);
+    const handleChange = (name, value) => {
+        setValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
     };
-    const handleCalorieChange = (e) => {
-        setCalorie(e.target.value);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        handleChange(name, value);
     };
-    const handleContentChange = (e) => {
-        setContent(e.target.value);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(values);
     };
 
     return (
-        <form>
-            <input name="title" value={title} onChange={handleTitleChange} />
+        <form onSubmit={handleSubmit}>
+            <FileInput name="imgFile" onChange={handleChange} />
+            <input
+                name="title"
+                value={values.title}
+                onChange={handleInputChange}
+            />
             <input
                 name="calorie"
-                value={calorie}
-                onChange={handleCalorieChange}
+                value={values.calorie}
+                onChange={handleInputChange}
                 type="number"
             />
             <input
                 name="content"
-                value={content}
-                onChange={handleContentChange}
+                value={values.content}
+                onChange={handleInputChange}
             />
+            <button type="submit">확인</button>
         </form>
     );
 };
