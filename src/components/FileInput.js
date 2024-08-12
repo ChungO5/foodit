@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const FileInput = ({ name, value, onChange }) => {
-    const [prevImg, setPrevImg] = useState();
+const FileInput = ({ name, value, initialPreview, onChange }) => {
+    const [prevImg, setPrevImg] = useState(initialPreview);
     const inputRef = useRef();
 
     const handleFileChange = (e) => {
@@ -24,10 +24,10 @@ const FileInput = ({ name, value, onChange }) => {
         setPrevImg(objectURL);
 
         return () => {
-            setPrevImg();
+            setPrevImg(initialPreview);
             URL.revokeObjectURL(objectURL);
         };
-    }, [value]);
+    }, [value, initialPreview]);
 
     return (
         <div>
