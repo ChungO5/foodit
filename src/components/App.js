@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import FoodList from "./FoodList";
 import { creatFood, deleteFood, getFoods, updateFood } from "../api";
 import FoodForm from "./FoodForm";
-import LocaleContext from "../context/LocaleContext";
+import { LocaleProvider } from "../context/LocaleContext";
+import LocaleSelect from "./LocaleSelect";
 
 const LIMIT = 10;
 
@@ -77,8 +78,9 @@ const App = () => {
     }, [order, search]);
 
     return (
-        <LocaleContext.Provider value={"ko"}>
+        <LocaleProvider defaultValue={"ko"}>
             <div>
+                <LocaleSelect />
                 <FoodForm
                     onSubmit={creatFood}
                     handleSubmitSuccess={handleCreateSuccess}
@@ -104,7 +106,7 @@ const App = () => {
                 )}
                 {loadingError?.message && <p>{loadingError.message}</p>}
             </div>
-        </LocaleContext.Provider>
+        </LocaleProvider>
     );
 };
 
